@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import firebase from 'firebase/app';
 import { AuthService } from '../../providers/auth-service';
 
 @Component({
@@ -9,19 +8,11 @@ import { AuthService } from '../../providers/auth-service';
 })
 
 export class LoginPage {
-  // userProfile: any = null;
 
   constructor(public navCtrl: NavController, 
               private auth: AuthService
             ) {
-    // firebase.auth().onAuthStateChanged( user => {
-    //   if (user){
-    //     this.userProfile = user;
-    //     // console.log("User: " + JSON.stringify(user));
-    //   } else { 
-    //       this.userProfile = null;
-    //   }
-    // });
+ 
   }
 
   loginWithGoogle() {
@@ -29,7 +20,7 @@ export class LoginPage {
       .then(
         user => {
           console.log("User: " + JSON.stringify(user));
-          this.navCtrl.setRoot("ShowsPage")
+          this.navCtrl.setRoot("ShowsPage");
         },
         error => console.log(error.message)
       );

@@ -5,9 +5,11 @@ import 'firebase/database';
 @Injectable()
 export class DataProvider {
   public shows: any;
+  public states: any;
 
     constructor() {
         this.shows = firebase.database().ref('/shows/');
+        this.states = firebase.database().ref('/states/');
 
     }
 
