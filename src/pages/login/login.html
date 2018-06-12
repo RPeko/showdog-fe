@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <button ion-button icon-left block clear (click)="loginWithGoogle()">
+      <ion-icon name="logo-google"></ion-icon>
+      Log in with Google
+    </button>
+  </ion-item>
+  <ion-item>
+    <button ion-button icon-left block clear (click)="loginWithFB()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      Log in with Facebook
+    </button>
+  </ion-item>
+
+
+
+</ion-content>

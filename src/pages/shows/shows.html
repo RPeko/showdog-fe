@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Shows</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group *ngFor="let show of shows">
+    <ion-item-divider light>
+      {{show.name}}
+    </ion-item-divider>
+  </ion-item-group>
+</ion-content>

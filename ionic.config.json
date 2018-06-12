@@ -1,0 +1,8 @@
+{
+  "name": "showdog",
+  "app_id": "8d3207f3",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
