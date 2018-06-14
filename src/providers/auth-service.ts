@@ -14,6 +14,10 @@ export class AuthService {
 		});
 	}
 
+	getUid(): string {
+		return this.user.uid;
+	  }
+
 	signInWithEmail(credentials) {
 		console.log('Sign in with email');
 		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,

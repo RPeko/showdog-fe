@@ -1,13 +1,23 @@
-
 <ion-header>
-
   <ion-navbar>
-    <ion-title>settings</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>States</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+  <ion-list>
+    <ion-row>
+      <ion-col col-5>State</ion-col>
+      <ion-col col-1>Enabled</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let state of states">
+      <ion-input col-5 [(ngModel)]="state.name" type="text"></ion-input>
+      <ion-toggle [(ngModel)]="state.checked" (ngModelChange)="update(state)"></ion-toggle>
+    </ion-row>
+  </ion-list>
 
 </ion-content>
