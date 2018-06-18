@@ -9,31 +9,35 @@ import { State } from '../../models/state';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  states: any[] = [];
-  userstates: any[] = [];
+  states: State[] = [];
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              public dataProvider: DataProvider,
-              ) {
-                this.dataProvider.states.on('value', data => {
-                  this.states = data.val();
-                  this.dataProvider.userstates().on('value', data => {
-                    this.userstates = data.val();
-                    console.log("Userstates: " + JSON.stringify(this.userstates));
-                    if (this.userstates){
-                      this.states.forEach(state => state.checked = (this.userstates.findIndex(us => us == state.id) !== -1));
-                    }
-                });
-                  console.log("States: " + JSON.stringify(this.states));
-              });
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public dataProvider: DataProvider,
+  ) {
+    this.dataProvider.states.on('value', data => {
+      this.states = data.val();
+      let userstates = [];
+      this.dataProvider.userstates().on('value', data => {
+        userstates = data.val();
+        console.log("Userstates: " + JSON.stringify(userstates));
+        if (userstates) {
+          this.states.forEach(state => state.checked = (userstates.findIndex(us => us == state.id) !== -1));
+        }
+      });
+      console.log("States: " + JSON.stringify(this.states));
+    });
   }
 
-  update(state:State){
-    if (state.checked){
-
-    } else {
-
-    }   
+  updateUserStates() {
+    let userstates = [];
+    console.log("States: " + JSON.stringify(this.states));
+    for (let i = 0; i < this.states.length; i++) {
+      if (this.states[i].checked) {
+        userstates.push(this.states[i].code);
+      }
+    }
+    this.dataProvider.updateUserStates(userstates);
   }
 }

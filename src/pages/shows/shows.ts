@@ -20,4 +20,6 @@ shows: Show[] = [];
                   this.shows = data.val();
               });
   }
+
+ 
 }

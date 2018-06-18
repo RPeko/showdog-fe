@@ -16,7 +16,7 @@
     </ion-row>
     <ion-row *ngFor="let state of states">
       <ion-input col-5 [(ngModel)]="state.name" type="text"></ion-input>
-      <ion-toggle [(ngModel)]="state.checked" (ngModelChange)="update(state)"></ion-toggle>
+      <ion-toggle [(ngModel)]="state.checked" (ngModelChange)="updateUserStates(state)"></ion-toggle>
     </ion-row>
   </ion-list>
 

@@ -17,6 +17,7 @@ import { AuthService } from '../providers/auth-service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 Pro.init('8d3207f3', {
   appVersion: '0.0.6'
@@ -63,12 +64,12 @@ export class MyErrorHandler implements ErrorHandler {
   providers: [
     StatusBar,
     SplashScreen,
-    // GooglePlus,
     DataProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     IonicErrorHandler,
         [{ provide: ErrorHandler, useClass: MyErrorHandler }],
     AngularFireAuth,
+    AngularFireDatabase,
     AuthService
   ]
 })
