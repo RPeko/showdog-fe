@@ -21,9 +21,11 @@ export class SettingsPage {
       let userstates = [];
       this.dataProvider.userstates().on('value', data => {
         userstates = data.val();
-        console.log("Userstates: " + JSON.stringify(userstates));
+        // console.log("Userstates: " + JSON.stringify(userstates));
         if (userstates) {
-          this.states.forEach(state => state.checked = (userstates.findIndex(us => us == state.id) !== -1));
+          for (let i=0; i<this.states.length; i++){
+            this.states[i].checked = (userstates.findIndex(us => us == this.states[i].code) !== -1);
+          }
         }
       });
       console.log("States: " + JSON.stringify(this.states));
@@ -32,7 +34,6 @@ export class SettingsPage {
 
   updateUserStates() {
     let userstates = [];
-    console.log("States: " + JSON.stringify(this.states));
     for (let i = 0; i < this.states.length; i++) {
       if (this.states[i].checked) {
         userstates.push(this.states[i].code);

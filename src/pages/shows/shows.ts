@@ -10,16 +10,23 @@ import { DataProvider } from '../../providers/data';
   templateUrl: 'shows.html',
 })
 export class ShowsPage {
-shows: Show[] = [];
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              public dataProvider: DataProvider,
-              ) {
-                this.dataProvider.shows.on('value', data => {
-                  this.shows = data.val();
-              });
+  shows: Show[] = [];
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public dataProvider: DataProvider,
+  ) {
+    this.dataProvider.userstates().on('value', userstates => {
+      console.log("Userstates:  " + JSON.stringify(userstates));
+      userstates.forEach(userstate => {
+        this.dataProvider.shows.orderByChild("state/code")
+          .equalTo(JSON.stringify(userstate))
+          .on('value', data => {
+            console.log("Shows for " + JSON.stringify(userstate) + ": " + JSON.stringify(data));
+            this.shows.concat(data.val());
+          });
+      });
+    });
   }
-
- 
 }
