@@ -3,7 +3,8 @@ export class Show {
     description: string;
     place: string;
     type: string;
+    statecode:string;
     date: Date;
     lat: number;
-    lon: number;    
+    lon: number;
 }
