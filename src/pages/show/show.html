@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Show</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="showForm" (ngSubmit)="submitShow()">
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="name" maxlength="30"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea type="text" formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-input type="text" formControlName="type"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date:</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lat</ion-label>
+      <ion-input type="text" formControlName="lat"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lon</ion-label>
+      <ion-input type="text" formControlName="lon"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Statecode</ion-label>
+      <ion-input type="text" formControlName="statecode"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!showForm.valid">Submit show</button>
+  </form>
+</ion-content>

@@ -27,7 +27,7 @@ export class ShowsPage {
       this.shows = [];
       userdata = data.val();
       if (userdata) {
-        if (userdata.admin){
+        if (userdata.admin) {
           this.admin = userdata.admin;
         }
         userdata.userstates.forEach(userstate => {
@@ -46,6 +46,10 @@ export class ShowsPage {
         });
       }
     });
+  }
+
+  open(show:Show){
+    this.navCtrl.setRoot("ShowPage", {show:show});
   }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
+import { Show } from '../models/show';
 
 @Injectable()
 export class DataProvider {
@@ -10,5 +11,7 @@ export class DataProvider {
         this.shows = firebase.database().ref('/shows/');
         this.states = firebase.database().ref('/states/');
     }
+
+    updateShow(show:Show){}
 
 }

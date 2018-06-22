@@ -5,13 +5,17 @@
         </button>
     <ion-title>Shows</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
 <ion-item-group *ngFor="let show of shows">
   <ion-item-divider light>
-    {{show.name}}
+    <ion-col col-9> {{show.name}}</ion-col>
+    <ion-col col-3>
+      <button ion-button (click)="open(show)"  *ngIf="admin>2">
+        <ion-icon name="open"></ion-icon>
+      </button>
+    </ion-col>
   </ion-item-divider>
 </ion-item-group>
 
