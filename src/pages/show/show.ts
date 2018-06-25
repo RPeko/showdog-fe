@@ -22,7 +22,7 @@ export class ShowPage {
     console.log("Show: " + JSON.stringify(this.show));
     if (!this.show || !this.show.name) {
       this.show = new Show();
-      this.show.date = new Date();
+      this.show.date = (new Date()).toISOString();
     }
       this.showForm = this.formBuilder.group({
         'name': ['', Validators.required],
