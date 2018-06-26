@@ -35,13 +35,15 @@ export class ShowsPage {
             .orderByChild("/statecode/")
             .equalTo(userstate)
             .on('value', data => {
-              if (data.val() instanceof Array) {
-                data.val().forEach(show => {
+              let showsarray = this.dataProvider.snapshotToArray(data);
+              console.log("data.val: " + JSON.stringify(showsarray));
+              showsarray.forEach(show => {
+                  // console.log("data.key: " + show);
+                  // console.log("data.val: " + JSON.stringify(show));
                   if (show !== null) {
                     this.shows.push(show);
                   }
                 });
-              }
             });
         });
       }

@@ -12,54 +12,59 @@ import { DataProvider } from '../../providers/data';
 export class ShowPage {
   show: Show;
   showForm: FormGroup;
+  message = '';
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams, 
-              private formBuilder: FormBuilder, 
-              public dataProvider: DataProvider) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private formBuilder: FormBuilder,
+    public dataProvider: DataProvider) {
 
     this.show = this.navParams.get("show");
     console.log("Show: " + JSON.stringify(this.show));
     if (!this.show || !this.show.name) {
       this.show = new Show();
       this.show.date = (new Date()).toISOString();
+      console.log("New Show: " + JSON.stringify(this.show));
     }
-      this.showForm = this.formBuilder.group({
-        'name': ['', Validators.required],
-        'description': [''],
-        'place': [''],
-        'type': [''],
-        'statecode': [''],
-        'date': [''],
-        'lat': [''],
-        'lon': [''],
-      });
-    }
-
-    ionViewDidLoad() {
-      this.showForm.setValue({
-        name: this.show.name || "",
-        description: this.show.description || "",
-        place: this.show.place || "",
-        type: this.show.type || "",
-        statecode: this.show.statecode || "",
-        date: this.show.date || "",
-        lat: this.show.lat || "",
-        lon: this.show.lon || "",
-      });
-    }
-
-
-    submitShow() {
-      this.show.name = this.showForm.value.name;
-      this.show.description = this.showForm.value.description;
-      this.show.place = this.showForm.value.place;
-      this.show.type = this.showForm.value.type;
-      this.show.statecode = this.showForm.value.statecode;
-      this.show.date = this.showForm.value.date;
-      this.show.lat = this.showForm.value.lat;
-      this.show.lon = this.showForm.value.lon;
-      this.dataProvider.updateShow(this.show);
-    }
-
+    this.showForm = this.formBuilder.group({
+      'name': ['', Validators.required],
+      'description': [''],
+      'place': [''],
+      'type': [''],
+      'statecode': [''],
+      'date': [''],
+      'lat': [0],
+      'lon': [0],
+    });
   }
+
+  ionViewDidLoad() {
+    this.showForm.setValue({
+      name: this.show.name || "",
+      description: this.show.description || "",
+      place: this.show.place || "",
+      type: this.show.type || "",
+      statecode: this.show.statecode || "",
+      date: this.show.date || "",
+      lat: this.show.lat || "",
+      lon: this.show.lon || "",
+    });
+  }
+
+
+  submitShow() {
+    this.show.name = this.showForm.value.name;
+    this.show.description = this.showForm.value.description;
+    this.show.place = this.showForm.value.place;
+    this.show.type = this.showForm.value.type;
+    this.show.statecode = this.showForm.value.statecode;
+    this.show.date = this.showForm.value.date.slice(0, 10);
+    this.show.lat = this.showForm.value.lat;
+    this.show.lon = this.showForm.value.lon;
+    this.dataProvider.upsetShow(this.show).then(() =>
+      this.navCtrl.setRoot("ShowsPage"),
+      err => this.message = err
+    );
+  }
+
+}

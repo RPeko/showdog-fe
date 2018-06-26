@@ -1,4 +1,5 @@
 export class Show {
+    key:string;
     name: string;
     description: string;
     place: string;
@@ -7,4 +8,8 @@ export class Show {
     date: string;
     lat: number;
     lon: number;
+
+    constructor() {
+        this.key = '';
+    }
 }

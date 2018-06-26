@@ -37,6 +37,9 @@
       <ion-label>Statecode</ion-label>
       <ion-input type="text" formControlName="statecode"></ion-input>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!showForm.valid">Submit show</button>
+    <button ion-button type="submit" [disabled]="!showForm.valid">Submit data</button>
   </form>
+  <ion-item>
+    <ion-label danger>{{message}}</ion-label>
+  </ion-item>
 </ion-content>
