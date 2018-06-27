@@ -46,6 +46,18 @@ export class ShowsPage {
                 });
             });
         });
+      } else {
+        this.dataProvider.shows
+            .on('value', data => {
+              let showsarray = this.dataProvider.snapshotToArray(data);
+              showsarray.forEach(show => {
+                  // console.log("data.key: " + show);
+                  // console.log("data.val: " + JSON.stringify(show));
+                  if (show !== null) {
+                    this.shows.push(show);
+                  }
+                });
+            });
       }
     });
   }

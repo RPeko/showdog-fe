@@ -14,15 +14,12 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
-
-  
-
   pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, 
-             public statusBar: StatusBar, 
-             public splashScreen: SplashScreen,
-             private auth: AuthService
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen,
+              public auth: AuthService
             ) {
     this.initApp();
     this.pages = [
@@ -40,7 +37,7 @@ export class MyApp {
 				.subscribe(
 					user => {
 						if (user) {
-							this.rootPage = "ShowsPage";
+              this.rootPage = "ShowsPage";
 						} else {
 							this.rootPage = LoginPage;
 						}
@@ -52,13 +49,17 @@ export class MyApp {
   }
 
   login() {
-		this.auth.signOut();
+    this.auth.signOut();
 		this.nav.setRoot(LoginPage);
   }
 
   logout() {
 		this.auth.signOut();
-		this.nav.setRoot("ShowsPage");
+		this.nav.setRoot(LoginPage).then(data => {
+      console.log("logout-then: " + data);
+  }, (error) => {
+      console.log("logout-err: " + error);
+  });
 	}
   
   openPage(page) {

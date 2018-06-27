@@ -12,7 +12,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController, 
               private auth: AuthService
             ) {
- 
+            console.log("constructor ...");
+            console.log("anonymous:   " + this.auth.anonymous);
   }
 
   loginWithGoogle() {
@@ -25,6 +26,17 @@ export class LoginPage {
         error => console.log(error.message)
       );
     }
+
+    loginAnonymously() {
+      this.auth.signInAnonymously()
+        .then(
+          user => {
+            console.log("User: " + JSON.stringify(user));
+            this.navCtrl.setRoot("ShowsPage");
+          },
+          error => console.log(error.message)
+        );
+      }
   
     loginWithFB() {
       this.auth.signInWithFB()
@@ -36,9 +48,5 @@ export class LoginPage {
           error => console.log(error.message)
         );
       }
-  
-
-  loginAsGuest(){
-    this.navCtrl.setRoot("ShowsPage");
-  }
+ 
 }

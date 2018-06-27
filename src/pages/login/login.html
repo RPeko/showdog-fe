@@ -20,7 +20,11 @@
       Log in with Facebook
     </button>
   </ion-item>
-
-
+  <ion-item *ngIf="!auth.anonymous">
+      <button ion-button  icon-left block clear (click)="loginAnonymously()">
+        <ion-icon name="person"></ion-icon>
+          Log in anonymously
+      </button>
+    </ion-item>
 
 </ion-content>

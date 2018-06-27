@@ -46,6 +46,14 @@ export class AuthService {
 		return this.user !== null;
 	}
 
+	get anonymous(): boolean {
+		if (this.user){
+			return this.user.isAnonymous;
+		} else {
+			return false;
+		}
+	}
+
 	getEmail() {
 		return this.user && this.user.email;
 	}
@@ -62,6 +70,10 @@ export class AuthService {
 	signInWithFB() {
 		console.log('Sign in with facebook');
 		return this.oauthSignIn(new firebase.auth.FacebookAuthProvider);
+	}
+
+	signInAnonymously() {
+		return this.afAuth.auth.signInAnonymously();
 	}
 
 	private oauthSignIn(provider: AuthProvider) {
