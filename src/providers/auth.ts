@@ -15,21 +15,22 @@ export class AuthService {
 	}
 
 	getUid(): string {
-		return this.user.uid;
+		return this.user?this.user.uid:'';
 	}
 
 	getUserdata(){
-		return firebase.database().ref('/userdata/' + this.user.uid);		
+		return firebase.database().ref('/userdata/' + this.getUid());		
 	}
 
 	getUserstates() {
-		console.log('/userdata/' + this.user.uid + '/userstates/');
-		return firebase.database().ref('/userdata/' + this.user.uid + '/userstates/');
+		return firebase.database().ref('/userdata/' + this.getUid() + '/userstates/');
 	}
 
 	updateUserStates(userstates: string[]) {
-        const userstatesRef = this.db.object('/userdata/' + this.user.uid + '/userstates');
-        userstatesRef.set(userstates);
+		if (this.user){
+			const userstatesRef = this.db.object('/userdata/' + this.getUid() + '/userstates');
+			userstatesRef.set(userstates);
+		}
     }
 
 	signInWithEmail(credentials) {
