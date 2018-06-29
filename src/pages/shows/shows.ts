@@ -15,6 +15,7 @@ import { Userdata } from '../../models/userdata';
 export class ShowsPage {
 
   shows: Show[] = [];
+  stateshows: { state: string, shows: Show[] }[]
   admin = 0;
 
   constructor(public navCtrl: NavController,
@@ -28,7 +29,7 @@ export class ShowsPage {
   ionViewWillEnter(){
     this.authService.getUserdata().on('value', data => {
       let userdata: Userdata;
-      this.shows = [];
+      this.stateshows = [];
       userdata = data.val();
       console.log("data.val: " + JSON.stringify(userdata));
       if (userdata) {
@@ -43,9 +44,15 @@ export class ShowsPage {
               .on('value', data => {
                 let showsarray = this.dataProvider.snapshotToArray(data);
                 showsarray.forEach(show => {
-                  // console.log("show " + show.key + ":  " + JSON.stringify(show));
+                  console.log("show " + show.key + ":  " + JSON.stringify(show));
                     if (show !== null) {
-                      this.shows.push(show);
+                      let index = this.stateshows.findIndex(ss => ss.state == show.statecode);
+                      if (index > -1){
+                        this.stateshows[index].shows.push(show);  
+                      } else {
+                        
+                        this.stateshows.push({state: show.statecode, shows: [show]});
+                      }
                     }
                   });
               });

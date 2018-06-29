@@ -11,7 +11,7 @@ import { Userdata } from '../../models/userdata';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  states: State[] = [];
+  states: State[];
 
 
   constructor(public navCtrl: NavController,
