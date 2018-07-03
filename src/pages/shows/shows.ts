@@ -13,9 +13,9 @@ import { Userdata } from '../../models/userdata';
 })
 
 export class ShowsPage {
-
-  shows: Show[] = [];
-  stateshows: { state: string, shows: Show[] }[]
+  stateshows: { state: string, shows: Show[] }[];
+  monthshows: { month: string, shows: Show[] }[];
+  groupBy = 2;
   admin = 0;
 
   constructor(public navCtrl: NavController,
@@ -30,6 +30,7 @@ export class ShowsPage {
     this.authService.getUserdata().on('value', data => {
       let userdata: Userdata;
       this.stateshows = [];
+      this.monthshows = [];
       userdata = data.val();
       console.log("data.val: " + JSON.stringify(userdata));
       if (userdata) {
@@ -44,15 +45,10 @@ export class ShowsPage {
               .on('value', data => {
                 let showsarray = this.dataProvider.snapshotToArray(data);
                 showsarray.forEach(show => {
-                  console.log("show " + show.key + ":  " + JSON.stringify(show));
+                  // console.log("show " + show.key + ":  " + JSON.stringify(show));
                     if (show !== null) {
-                      let index = this.stateshows.findIndex(ss => ss.state == show.statecode);
-                      if (index > -1){
-                        this.stateshows[index].shows.push(show);  
-                      } else {
-                        
-                        this.stateshows.push({state: show.statecode, shows: [show]});
-                      }
+                      this.groupByState(show);
+                      this.groupByMonth(show);
                     }
                   });
               });
@@ -64,12 +60,31 @@ export class ShowsPage {
               let showsarray = this.dataProvider.snapshotToArray(data);
               showsarray.forEach(show => {
                   if (show !== null) {
-                    this.shows.push(show);
+                    this.groupByState(show);
+                    this.groupByMonth(show);
                   }
                 });
             });
       }
     });
+  }
+
+  groupByState(show:Show){
+    let index = this.stateshows.findIndex(ss => ss.state == show.statecode);
+    if (index > -1){
+      this.stateshows[index].shows.push(show);
+    } else {
+      this.stateshows.push({state: show.statecode, shows: [show]});
+    }
+  }
+
+  groupByMonth(show:Show){
+    let index = this.monthshows.findIndex(ms => ms.month == show.date.slice(0, 7));
+    if (index > -1){
+      this.monthshows[index].shows.push(show);
+    } else {
+      this.monthshows.push({month: show.date.slice(0, 7), shows: [show]});
+    }
   }
 
   open(show:Show){

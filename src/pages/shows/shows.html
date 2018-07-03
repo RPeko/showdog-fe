@@ -8,26 +8,45 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item  *ngFor="let stateshow of stateshows" >
-      <ion-row item-center col-12>
-          {{stateshow.state}}
-      </ion-row>
-    </ion-item>
-  </ion-list>
-  <ion-item-group *ngFor="let stateshow of stateshows">
-    <ion-item-divider>{{stateshow.state}}</ion-item-divider>
-        <ion-item light *ngFor="let show of stateshow.shows">
-          <ion-col col-9> {{show.name}}</ion-col>
-          <ion-col col-3>
-            <button ion-button (click)="open(show)" *ngIf="admin>2">
-              <ion-icon name="open"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-item>
-  </ion-item-group>
-  <ion-item>
-    <button ion-button (click)="open()" *ngIf="admin>2">
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="groupBy">
+      <ion-segment-button value="1">
+        Group by state
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        Group by month
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngIf="groupBy==1">
+    <ion-item-group *ngFor="let stateshow of stateshows">
+      <ion-item-divider>{{stateshow.state}}</ion-item-divider>
+      <ion-item light *ngFor="let show of stateshow.shows">
+        <ion-col col-9> {{show.name}}</ion-col>
+        <ion-col col-3>
+          <button ion-button (click)="open(show)" *ngIf="admin>2">
+            <ion-icon name="open"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-item>
+    </ion-item-group>
+  </div>
+  <div *ngIf="groupBy==2">
+    <ion-item-group *ngFor="let monthshow of monthshows">
+      <ion-item-divider>{{monthshow.month}}</ion-item-divider>
+      <ion-item light *ngFor="let show of monthshow.shows">
+        <ion-col col-9> {{show.name}}</ion-col>
+        <ion-col col-3>
+          <button ion-button (click)="open(show)" *ngIf="admin>2">
+            <ion-icon name="open"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-item>
+    </ion-item-group>
+  </div>
+  <ion-item *ngIf="admin>2">
+    <button ion-button (click)="open()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-item>

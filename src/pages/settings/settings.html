@@ -11,11 +11,11 @@
 <ion-content padding>
   <ion-list>
     <ion-row>
-      <ion-col col-5>State</ion-col>
-      <ion-col col-1>Enabled</ion-col>
+      <ion-col col-8>State</ion-col>
+      <ion-col>Enabled</ion-col>
     </ion-row>
     <ion-row *ngFor="let state of states">
-      <ion-input col-5 [(ngModel)]="state.name" type="text"></ion-input>
+      <ion-input col-8 [(ngModel)]="state.name" type="text"></ion-input>
       <ion-toggle [(ngModel)]="state.checked" (ngModelChange)="updateUserStates(state)"></ion-toggle>
     </ion-row>
   </ion-list>
